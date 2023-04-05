@@ -20,6 +20,9 @@ void SerialSBUS::sendLinkStatisticsToFC()
 
 uint32_t SerialSBUS::sendRCFrameToFC(bool frameAvailable, uint32_t *channelData)
 {
+    if (connectionState != connected)
+        return 9;   // callback is every 9ms
+
     crsf_channels_s PackedRCdataOut;
     
     if (config.GetSerialProtocol() == PROTOCOL_DJI_RS_PRO)
